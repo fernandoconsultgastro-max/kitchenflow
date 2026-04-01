@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KitchenFlow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="container">
+      <h1>KitchenFlow</h1>
+      <p>Sistema de gestão de pedidos para cozinha</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="painel">
+      <h2>Novo Pedido</h2>
+
+      <form id="order-form" class="formulario">
+        <input type="text" id="cliente" placeholder="Nome do cliente" required />
+        <input type="text" id="prato" placeholder="Nome do prato" required />
+        <input type="text" id="mesa" placeholder="Mesa ou retirada" required />
+        <button type="submit">Adicionar Pedido</button>
+      </form>
+    </section>
+
+    <section class="painel">
+      <h2>Filtros</h2>
+
+      <div class="filtros">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="pendente">Pendente</button>
+        <button class="filter-btn" data-filter="em preparo">Em preparo</button>
+        <button class="filter-btn" data-filter="pronto">Pronto</button>
+        <button class="filter-btn" data-filter="entregue">Entregue</button>
+      </div>
+
+      <div class="busca-area">
+        <input type="text" id="search-input" placeholder="Buscar por cliente ou prato" />
+      </div>
+
+      <div class="resumo" id="summary">
+        <div class="summary-card">
+          <span>Total</span>
+          <strong id="total-orders">0</strong>
+        </div>
+        <div class="summary-card">
+          <span>Pendentes</span>
+          <strong id="total-pendente">0</strong>
+        </div>
+        <div class="summary-card">
+          <span>Em preparo</span>
+          <strong id="total-em-preparo">0</strong>
+        </div>
+        <div class="summary-card">
+          <span>Prontos</span>
+          <strong id="total-pronto">0</strong>
+        </div>
+        <div class="summary-card">
+          <span>Entregues</span>
+          <strong id="total-entregue">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="painel">
+      <div class="pedidos-topo">
+        <h2>Pedidos</h2>
+        <button id="clear-all" class="danger-outline">Limpar tudo</button>
+      </div>
+
+      <div id="orders-container" class="orders-grid"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
