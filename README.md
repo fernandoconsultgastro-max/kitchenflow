@@ -72,3 +72,10 @@ O sistema realiza o cálculo do custo real de cada prato com base na ficha técn
 
 ```txt
 Custo do prato = Σ (quantidade do insumo × custo unitário)
+
+---
+### Execução do Projeto (Backend)
+
+bash
+npm install
+node server.js
