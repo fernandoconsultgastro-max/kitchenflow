@@ -65,17 +65,12 @@ Preparado para evolução para banco de dados (MongoDB).
 O KitchenFlow V2 se destaca por aplicar conceitos de **engenharia de software voltados a problemas reais**, indo além de um sistema CRUD tradicional.
 
 ---
-
-###  Cálculo de CMV REAL por prato
+### 🧮 Cálculo de CMV REAL por prato
 
 O sistema realiza o cálculo do custo real de cada prato com base na ficha técnica e nos insumos cadastrados:
 
 ```txt
 Custo do prato = Σ (quantidade do insumo × custo unitário)
+```
 
----
-### Execução do Projeto (Backend)
 
-bash
-npm install
-node server.js
