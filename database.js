@@ -1,8 +1,20 @@
 const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
 
-const dbPath = path.resolve(__dirname, "database", "database.sqlite");
-const db = new sqlite3.Database(dbPath);
+// ===============================
+// BANCO SQLITE NO RENDER
+// ===============================
+console.log("DB TESTE RENDER 4146");
+
+const dbPath = "/tmp/database.sqlite";
+console.log("Tentando abrir banco em:", dbPath);
+
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("Erro ao abrir banco SQLite:", err.message);
+  } else {
+    console.log("Banco SQLite conectado em:", dbPath);
+  }
+});
 
 // ===============================
 // HELPERS DE EXECUÇÃO
@@ -44,9 +56,6 @@ async function colunaExiste(nomeTabela, nomeColuna) {
 
 // ===============================
 // ADICIONAR COLUNA SE NÃO EXISTIR
-// IMPORTANTE:
-// SQLite não aceita ADD COLUMN com
-// DEFAULT CURRENT_TIMESTAMP
 // ===============================
 async function garantirColuna(nomeTabela, nomeColuna, definicaoSql) {
   const existe = await colunaExiste(nomeTabela, nomeColuna);
@@ -391,17 +400,3 @@ async function init() {
 init();
 
 module.exports = db;
-
-/*
-======================================================
-NOTA DE MANUTENÇÃO
-======================================================
-- Corrigido erro de migração SQLite:
-  Cannot add a column with non-constant default
-- Removido DEFAULT CURRENT_TIMESTAMP das colunas
-  adicionadas via ALTER TABLE
-- Mantida estrutura profissional:
-  comandas, vendas, vendas_itens, pagamentos
-- Mantida compatibilidade com legado
-======================================================
-*/
