@@ -1,4 +1,4 @@
-# KitchenFlow V2 — Sistema de Gestão Gastronômica Inteligente
+#  KitchenFlow V2 — Sistema de Gestão Gastronômica Inteligente
 
 Sistema completo de gestão para restaurantes com foco em **controle operacional, precisão de custos e tomada de decisão estratégica**.
 
@@ -43,7 +43,7 @@ Preparado para evolução para banco de dados (MongoDB).
 
 ##  Funcionalidades
 
-### 🧾 Operação
+###  Operação
 - Gestão de comandas
 - Múltiplos pagamentos
 - Cálculo automático de troco
@@ -53,7 +53,7 @@ Preparado para evolução para banco de dados (MongoDB).
 - Ticket médio
 - Lucro bruto
 
-### Inteligência
+###  Inteligência
 - CMV por prato
 - Lucratividade
 - Ranking de desempenho
@@ -62,14 +62,13 @@ Preparado para evolução para banco de dados (MongoDB).
 
 ##  Diferencial Técnico
 
-### CMV REAL por prato
+O KitchenFlow V2 se destaca por aplicar conceitos de **engenharia de software voltados a problemas reais**, indo além de um sistema CRUD tradicional.
+
+---
+
+###  Cálculo de CMV REAL por prato
+
+O sistema realiza o cálculo do custo real de cada prato com base na ficha técnica e nos insumos cadastrados:
 
 ```txt
 Custo do prato = Σ (quantidade do insumo × custo unitário)
----
-
-## ▶️ Execução do Projeto (Backend)
-
-```bash
-npm install
-node server.js
