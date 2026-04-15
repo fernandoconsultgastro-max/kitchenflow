@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 
 // Inicializa banco
-require("./database");
+require("./database.js");
 
 const app = express();
 
