@@ -66,3 +66,10 @@ Preparado para evolução para banco de dados (MongoDB).
 
 ```txt
 Custo do prato = Σ (quantidade do insumo × custo unitário)
+---
+
+## ▶️ Execução do Projeto (Backend)
+
+```bash
+npm install
+node server.js
