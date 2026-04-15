@@ -6,8 +6,7 @@ Sistema completo de gestão para restaurantes com foco em **controle operacional
 
 ##  Interface do Sistema
 
-![Sistema](Print kitchenFlowSystem.png)
-
+![Sistema](sistema.png)
 ---
 
 ##  Sobre o Projeto
