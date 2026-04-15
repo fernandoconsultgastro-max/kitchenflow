@@ -5,7 +5,7 @@ const fs = require("fs");
 // ===============================
 // GARANTIR PASTA DO BANCO
 // ===============================
-const dbDir = path.resolve(__dirname, "database");
+const dbDir = "/tmp";
 
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
