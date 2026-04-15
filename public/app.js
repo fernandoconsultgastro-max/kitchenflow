@@ -1,4 +1,6 @@
-const API = "http://localhost:3000";
+const API = window.location.hostname === "localhost"
+  ? "http://localhost:3000"
+  : window.location.origin;
 
 // ===============================
 // ESTADO GLOBAL DO FRONTEND
