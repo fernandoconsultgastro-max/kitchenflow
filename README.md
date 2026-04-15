@@ -58,7 +58,7 @@ Preparado para evolução para banco de dados (MongoDB).
 - Lucratividade
 - Ranking de desempenho
 
----
+--- 
 
 ##  Diferencial Técnico
 
