@@ -4,6 +4,12 @@ Sistema completo de gestão para restaurantes com foco em **controle operacional
 
 ---
 
+##  Interface do Sistema
+
+![Sistema](Print kitchenFlowSystem.png)
+
+---
+
 ##  Sobre o Projeto
 
 O KitchenFlow V2 foi desenvolvido com base em **operações reais de cozinha profissional**, integrando:
