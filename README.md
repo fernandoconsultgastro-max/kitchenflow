@@ -1,8 +1,32 @@
+---
+
 ## 🌐 Sistema Online
 
-Acesse:
-https://kitchenflow-backend-p8cq.onrender.com
+O KitchenFlow V2 está disponível online para testes e demonstração:
 
+🔗 https://kitchenflow-backend-p8cq.onrender.com
+
+---
+
+### ⚠️ Observação Técnica
+
+O sistema utiliza banco de dados SQLite em ambiente temporário (`/tmp`), conforme padrão do Render.
+
+Isso significa que:
+
+- Os dados não são persistentes entre reinicializações do servidor
+- O ambiente é ideal para demonstração e validação do sistema
+- Para uso em produção, recomenda-se migração para banco persistente (PostgreSQL)
+
+---
+
+### 💡 Objetivo desta versão online
+
+- Validar a arquitetura do sistema
+- Demonstrar funcionamento real das rotas e regras de negócio
+- Servir como portfólio técnico do projeto KitchenFlow V2
+
+---
 #  KitchenFlow V2 — Sistema de Gestão Gastronômica Inteligente
 
 Sistema completo de gestão para restaurantes com foco em **controle operacional, precisão de custos e tomada de decisão estratégica**.
