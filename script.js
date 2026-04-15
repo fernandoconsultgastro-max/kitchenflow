@@ -1,5 +1,10 @@
 const sqlite3 = require("sqlite3").verbose();
 
+// ===============================
+// BANCO SQLITE NO RENDER
+// ===============================
+console.log("DB TESTE RENDER 4146");
+
 const dbPath = "/tmp/database.sqlite";
 console.log("Tentando abrir banco em:", dbPath);
 
@@ -10,6 +15,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.log("Banco SQLite conectado em:", dbPath);
   }
 });
+
 // ===============================
 // HELPERS DE EXECUÇÃO
 // ===============================
