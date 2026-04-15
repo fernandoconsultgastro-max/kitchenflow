@@ -1,17 +1,8 @@
 const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
-const fs = require("fs");
 
-// ===============================
-// GARANTIR PASTA DO BANCO
-// ===============================
-const dbDir = "/tmp";
+const dbPath = "/tmp/database.sqlite";
+console.log("Tentando abrir banco em:", dbPath);
 
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
-
-const dbPath = path.join(dbDir, "database.sqlite");
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error("Erro ao abrir banco SQLite:", err.message);
@@ -19,7 +10,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.log("Banco SQLite conectado em:", dbPath);
   }
 });
-
 // ===============================
 // HELPERS DE EXECUÇÃO
 // ===============================
