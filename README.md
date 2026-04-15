@@ -1,3 +1,8 @@
+## 🌐 Sistema Online
+
+Acesse:
+https://kitchenflow-backend-p8cq.onrender.com
+
 #  KitchenFlow V2 — Sistema de Gestão Gastronômica Inteligente
 
 Sistema completo de gestão para restaurantes com foco em **controle operacional, precisão de custos e tomada de decisão estratégica**.
