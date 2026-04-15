@@ -1,11 +1,20 @@
 const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
+const fs = require("fs");
 
-// ===============================
-// BANCO SQLITE NO RENDER
-// ===============================
 console.log("DB TESTE RENDER 4146");
 
-const dbPath = "/tmp/database.sqlite";
+const isRender = !!process.env.RENDER || process.platform === "linux";
+
+const dbDir = isRender
+  ? "/tmp"
+  : path.join(__dirname, "database");
+
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
+const dbPath = path.join(dbDir, "database.sqlite");
 console.log("Tentando abrir banco em:", dbPath);
 
 const db = new sqlite3.Database(dbPath, (err) => {
