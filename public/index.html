@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- =============================== -->
+  <!-- META E CONFIGURAÇÕES BÁSICAS -->
+  <!-- =============================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KitchenFlow</title>
+
+  <!-- =============================== -->
+  <!-- CSS PRINCIPAL -->
+  <!-- =============================== -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- =============================== -->
+    <!-- SIDEBAR -->
+    <!-- =============================== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>KitchenFlow</h1>
+        <p>Gestão profissional de cozinha, vendas e operação</p>
+      </div>
+
+      <!-- =============================== -->
+      <!-- MENU LATERAL -->
+      <!-- =============================== -->
+      <div class="menu">
+        <button
+          type="button"
+          class="btn btn-secondary menu-button"
+          onclick="trocarTela('insumos')"
+        >
+          Insumos
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary menu-button"
+          onclick="trocarTela('ficha')"
+        >
+          Ficha Técnica
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary menu-button"
+          onclick="trocarTela('vendas')"
+        >
+          Vendas
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary menu-button"
+          onclick="trocarTela('mesas')"
+        >
+          Mesas
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary menu-button"
+          onclick="trocarTela('comandas')"
+        >
+          Comandas
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary menu-button"
+          onclick="trocarTela('cozinha')"
+        >
+          Cozinha
+        </button>
+      </div>
+    </aside>
+
+    <!-- =============================== -->
+    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- =============================== -->
+    <main class="content">
+      <!-- =============================== -->
+      <!-- ALERTAS -->
+      <!-- =============================== -->
+      <section id="alert-area"></section>
+
+      <!-- ========================================================= -->
+      <!-- TELA 1: INSUMOS -->
+      <!-- ========================================================= -->
+      <section id="tela-insumos">
+        <header class="topbar">
+          <div>
+            <h2>Cadastro de Insumos</h2>
+            <p>
+              Cadastre as compras do restaurante e use esses dados
+              como base automática para a ficha técnica.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3>Novo Insumo</h3>
+            </div>
+
+            <form id="form-insumo" class="form-grid">
+              <div class="form-group">
+                <label for="insumo-nome">Nome do insumo</label>
+                <input
+                  type="text"
+                  id="insumo-nome"
+                  placeholder="Ex.: Arroz arbóreo"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="insumo-categoria">Categoria</label>
+                <select id="insumo-categoria" required>
+                  <option value="">Selecione a categoria</option>
+                  <option value="Secos">Secos</option>
+                  <option value="Hortifruti">Hortifruti</option>
+                  <option value="Laticínios">Laticínios</option>
+                  <option value="Carnes">Carnes</option>
+                  <option value="Frios">Frios</option>
+                  <option value="Congelados">Congelados</option>
+                  <option value="Bebidas">Bebidas</option>
+                  <option value="Temperos">Temperos</option>
+                  <option value="Higiene">Higiene</option>
+                  <option value="Descartáveis">Descartáveis</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="insumo-unidade">Unidade</label>
+                <select id="insumo-unidade" required>
+                  <option value="">Selecione a unidade</option>
+                  <option value="kg">kg</option>
+                  <option value="g">g</option>
+                  <option value="l">l</option>
+                  <option value="ml">ml</option>
+                  <option value="un">un</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="insumo-quantidade">Quantidade comprada</label>
+                <input
+                  type="number"
+                  id="insumo-quantidade"
+                  step="0.001"
+                  min="0"
+                  placeholder="Ex.: 5"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="insumo-custo">Custo total da compra</label>
+                <input
+                  type="number"
+                  id="insumo-custo"
+                  step="0.01"
+                  min="0"
+                  placeholder="Ex.: 30.00"
+                  required
+                />
+              </div>
+
+              <div class="form-group full">
+                <label for="insumo-observacao">Observação</label>
+                <input
+                  type="text"
+                  id="insumo-observacao"
+                  placeholder="Fornecedor, marca, lote ou observação interna"
+                />
+              </div>
+
+              <div class="form-actions full">
+                <button type="submit" class="btn btn-primary">
+                  Salvar Insumo
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Resumo por Categoria</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Categoria</th>
+                    <th>Total Investido</th>
+                  </tr>
+                </thead>
+                <tbody id="resumo-categorias">
+                  <tr>
+                    <td colspan="2">Nenhum dado encontrado.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Lista de Insumos</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Categoria</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Custo Total</th>
+                    <th>Custo Unitário</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-insumos">
+                  <tr>
+                    <td colspan="6">Nenhum insumo cadastrado.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TELA 2: FICHA TÉCNICA -->
+      <!-- ========================================================= -->
+      <section id="tela-ficha" style="display: none;">
+        <header class="topbar">
+          <div>
+            <h2>Ficha Técnica</h2>
+            <p>
+              Monte a ficha com base nos insumos cadastrados
+              e deixe o custo da preparação automatizado.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3>Dados da Ficha</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="ficha-nome">Nome da preparação</label>
+                <input
+                  type="text"
+                  id="ficha-nome"
+                  placeholder="Ex.: Risoto de camarão"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="ficha-rendimento">Rendimento</label>
+                <input
+                  type="number"
+                  id="ficha-rendimento"
+                  step="0.001"
+                  min="0"
+                  placeholder="Ex.: 10"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="ficha-cmv">CMV (%)</label>
+                <input
+                  type="number"
+                  id="ficha-cmv"
+                  step="0.01"
+                  min="0"
+                  placeholder="Ex.: 30"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="ficha-preco">Preço praticado</label>
+                <input
+                  type="number"
+                  id="ficha-preco"
+                  step="0.01"
+                  min="0"
+                  placeholder="Ex.: 59.90"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Resumo da Ficha</h3>
+            </div>
+
+            <div class="summary-grid">
+              <div class="summary-item">
+                <span class="summary-label">Custo total</span>
+                <strong id="custo-total">Custo: R$ 0,00</strong>
+              </div>
+
+              <div class="summary-item">
+                <span class="summary-label">Preço sugerido</span>
+                <strong id="preco-sugerido">Preço sugerido: R$ 0,00</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Adicionar Item à Ficha</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="select-insumo">Selecione o insumo</label>
+                <select id="select-insumo">
+                  <option value="">Selecionar insumo</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="qtd-insumo">Quantidade usada</label>
+                <input
+                  type="number"
+                  id="qtd-insumo"
+                  step="0.001"
+                  min="0"
+                  placeholder="Ex.: 0.250"
+                />
+              </div>
+
+              <div class="form-actions full">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="addItem()"
+                >
+                  Adicionar Item
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Itens da Ficha</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Insumo</th>
+                    <th>Quantidade usada</th>
+                    <th>Custo do item</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="itens-ficha">
+                  <tr>
+                    <td colspan="4">Nenhum item adicionado à ficha.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="salvarFicha()"
+              >
+                Salvar Ficha
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="limparFichaAtual()"
+              >
+                Limpar Ficha
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TELA 3: VENDAS -->
+      <!-- ========================================================= -->
+      <section id="tela-vendas" style="display: none;">
+        <header class="topbar">
+          <div>
+            <h2>Controle de Vendas</h2>
+            <p>
+              Registre as vendas dos pratos e acompanhe o impacto
+              gerencial no faturamento, lucro bruto e CMV.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3>Nova Venda</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="select-prato-venda">Prato</label>
+                <select id="select-prato-venda">
+                  <option value="">Selecione um prato</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="venda-quantidade">Quantidade vendida</label>
+                <input type="number" id="venda-quantidade" step="1" min="1" />
+              </div>
+
+              <div class="form-group">
+                <label for="venda-preco">Preço unitário</label>
+                <input type="number" id="venda-preco" step="0.01" min="0" />
+              </div>
+
+              <div class="form-group full">
+                <label for="venda-observacao">Observação</label>
+                <input type="text" id="venda-observacao" />
+              </div>
+
+              <div class="form-actions full">
+                <button type="button" class="btn btn-primary" onclick="registrarVenda()">
+                  Registrar Venda
+                </button>
+              </div>
+            </div>
+
+            <div id="status-venda" class="mt-20"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Resumo Gerencial</h3>
+            </div>
+
+            <div id="resumo-vendas">
+              <p>Carregando resumo de vendas...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- DASHBOARD FINANCEIRO -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Dashboard Financeiro</h3>
+            </div>
+
+            <div id="dashboardFinanceiro">
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <span class="summary-label">Total de vendas</span>
+                  <strong id="totalVendas">0</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Faturamento</span>
+                  <strong id="faturamento">R$ 0,00</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Custo total</span>
+                  <strong id="custoTotal">R$ 0,00</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Lucro bruto</span>
+                  <strong id="lucroBruto">R$ 0,00</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">CMV médio</span>
+                  <strong id="cmvMedio">0%</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Taxa de serviço</span>
+                  <strong id="taxaServico">R$ 0,00</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Ticket médio</span>
+                  <strong id="ticketMedio">R$ 0,00</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Prato mais vendido</span>
+                  <strong id="pratoMaisVendido">-</strong>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-label">Pagamentos</span>
+                  <strong id="pagamentosResumo">
+                    PIX: R$ 0,00<br>
+                    Cartão: R$ 0,00<br>
+                    Dinheiro: R$ 0,00
+                  </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- RANKING DE PRATOS -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Ranking de Pratos</h3>
+            </div>
+
+            <div id="rankingPratosDashboard">
+              <p>Carregando ranking...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- GRÁFICO DE VENDAS -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Gráfico de Vendas</h3>
+            </div>
+
+            <canvas id="graficoVendas" height="120"></canvas>
+          </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- DRE OPERACIONAL -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>DRE Operacional</h3>
+            </div>
+
+            <div id="dreOperacional">
+              <p>Carregando DRE...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- ALERTAS GERENCIAIS -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Alertas Gerenciais</h3>
+            </div>
+
+            <div id="alertasGerenciais">
+              <p>Carregando alertas...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- [KF-HTML-024] INTELIGÊNCIA POR PRATO -->
+<div class="grid-1 mt-20">
+  <div class="card">
+    <div class="card-header">
+      <h3>Inteligência por Prato</h3>
+    </div>
+
+    <div id="inteligenciaPratos">
+      <p>Carregando inteligência dos pratos...</p>
+    </div>
+  </div>
+</div>
+
+<!-- [KF-HTML-025] LUCRATIVIDADE POR PRATO -->
+<div class="grid-1 mt-20">
+  <div class="card">
+    <div class="card-header">
+      <h3>Lucratividade por Prato</h3>
+    </div>
+
+    <div id="lucratividadePratos">
+      <p>Carregando lucratividade...</p>
+    </div>
+  </div>
+</div>
+
+<!-- [KF-HTML-026] SIMULADOR DE PREÇO -->
+<!-- [KF-HTML-026] SIMULADOR DE PREÇO -->
+<div class="grid-1 mt-20">
+  <div class="card">
+    <div class="card-header">
+      <h3>Simulador de Preço</h3>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="simuladorPrato">Prato</label>
+        <select id="simuladorPrato">
+          <option value="">Selecione um prato</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="simuladorPreco">Preço de venda (R$)</label>
+        <input
+          type="number"
+          id="simuladorPreco"
+          step="0.01"
+          min="0"
+          placeholder="Ex.: 59.90"
+        />
+      </div>
+
+      <div class="form-actions full">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="simularPrecoPrato()"
+        >
+          Simular
+        </button>
+      </div>
+    </div>
+
+    <div id="resultadoSimulador" class="mt-20">
+      <p>Preencha os campos para simular.</p>
+    </div>
+  </div>
+</div>
+        <!-- =============================== -->
+        <!-- HISTÓRICO -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Histórico de Vendas</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Prato</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Faturamento</th>
+                    <th>Custo</th>
+                    <th>CMV</th>
+                    <th>Lucro Bruto</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-vendas">
+                  <tr>
+                    <td colspan="7">Nenhuma venda registrada.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- =============================== -->
+        <!-- CMV POR PRATO -->
+        <!-- =============================== -->
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Análise de CMV por Prato</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Prato</th>
+                    <th>Quantidade Vendida</th>
+                    <th>Faturamento</th>
+                    <th>Custo</th>
+                    <th>CMV</th>
+                    <th>Lucro</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-cmvs-pratos">
+                  <tr>
+                    <td colspan="7">Nenhuma análise de CMV encontrada.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TELA 4: MESAS -->
+      <!-- ========================================================= -->
+      <section id="tela-mesas" style="display: none;">
+        <header class="topbar">
+          <div>
+            <h2>Operação de Mesas</h2>
+            <p>
+              Visualize o salão, acompanhe mesas livres e ocupadas
+              e inicie o fluxo operacional da casa.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3>Nova Mesa</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="mesa-numero">Número da mesa</label>
+                <input
+                  type="text"
+                  id="mesa-numero"
+                  placeholder="Ex.: 01"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="mesa-lugares">Lugares</label>
+                <input
+                  type="number"
+                  id="mesa-lugares"
+                  min="0"
+                  step="1"
+                  placeholder="Ex.: 4"
+                />
+              </div>
+
+              <div class="form-group full">
+                <label for="mesa-descricao">Descrição</label>
+                <input
+                  type="text"
+                  id="mesa-descricao"
+                  placeholder="Ex.: Área interna próxima à janela"
+                />
+              </div>
+
+              <div class="form-actions full">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="criarMesa()"
+                >
+                  Criar Mesa
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Status do Salão</h3>
+            </div>
+
+            <div id="resumo-mesas">
+              <p>Carregando mesas...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Mapa Operacional de Mesas</h3>
+            </div>
+
+            <div id="lista-mesas-operacao">
+              <p>Carregando mesas...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TELA 5: COMANDAS -->
+      <!-- ========================================================= -->
+      <section id="tela-comandas" style="display: none;">
+        <header class="topbar">
+          <div>
+            <h2>Comandas</h2>
+            <p>
+              Acompanhe a comanda ativa, adicione pratos
+              e controle o fechamento operacional.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3>Comanda Atual</h3>
+            </div>
+
+            <div id="comanda-atual-info">
+              <p>Nenhuma comanda selecionada.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3>Adicionar Item na Comanda</h3>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="comanda-prato">Prato</label>
+                <select id="comanda-prato">
+                  <option value="">Selecione um prato</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="comanda-quantidade">Quantidade</label>
+                <input
+                  type="number"
+                  id="comanda-quantidade"
+                  min="1"
+                  step="1"
+                  placeholder="Ex.: 1"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="comanda-observacao">Observação</label>
+                <input
+                  type="text"
+                  id="comanda-observacao"
+                  placeholder="Ex.: Sem cebola, ponto da carne etc."
+                />
+              </div>
+
+              <div class="form-actions full">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="adicionarItemNaComandaAtual()"
+                >
+                  Adicionar Item
+                </button>
+
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="fecharComandaAtual()"
+                >
+                  Fechar Comanda
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Itens da Comanda</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Prato</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-itens-comanda">
+                  <tr>
+                    <td colspan="5">Nenhuma comanda selecionada.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-1 mt-20">
+          <div class="card">
+            <div class="card-header">
+              <h3>Últimas Comandas</h3>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Mesa</th>
+                    <th>Status</th>
+                    <th>Subtotal</th>
+                    <th>Total</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-comandas">
+                  <tr>
+                    <td colspan="6">Carregando comandas...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================= -->
+      <!-- TELA 6: COZINHA -->
+      <!-- ========================================================= -->
+      <section id="tela-cozinha" style="display: none;">
+        <header class="topbar">
+          <div>
+            <h2>Painel de Cozinha</h2>
+            <p>
+              Visualize a fila de produção em tempo real
+              e acompanhe o status dos pedidos da operação.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid-1">
+          <div class="card">
+            <div class="card-header">
+              <h3>Fila de Produção</h3>
+            </div>
+
+            <div id="painel-cozinha">
+              <p>Nenhum item em produção.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- =============================== -->
+  <!-- JAVASCRIPT PRINCIPAL -->
+  <!-- =============================== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
